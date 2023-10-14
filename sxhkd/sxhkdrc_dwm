@@ -1,0 +1,83 @@
+#
+# wm independent hotkeys
+#
+# make sxhkd reload its configuration files:
+
+# terminal emulator
+super + Return
+    kitty
+#secondary terminal
+super + shift + Return
+    alacritty
+# program launcher
+super + r
+	rofi -show drun -show-icons -font "Fira Code 18"
+super + d
+    dmenu_run
+super + p
+    passmenu -l 20
+super + v
+    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -font "Fira Code 18"
+alt + n
+    kitty -e nmtui
+super + shift + b
+    brave
+super + shift + f
+    firefox
+super + n
+    pcmanfm
+super + shift + n
+    nautilus
+super + shift + ctrl + l
+    lock-suspend.sh
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+alt + comma
+    sh /home/root99/.config/rofi/launchers/misc/launcher.sh
+alt + p
+    rofi-power-menu
+    # sh /home/root99/.config/rofi/powermenu/powermenu.sh
+alt + space
+    rofi -show combi
+super + ctrl + shift + x
+    code
+super + shift + ctrl + r
+    i3-nagbar -t warning -m 'do you want to reboot' -B 'Yes, reboot' reboot
+XF86MonBrightnessUp
+    xbacklight -inc 5
+XF86MonBrightnessDown
+    xbacklight -dec 5
+# super+y
+#     import -window root $HOME/Downloads/Pictures/screenshot-`/bin/date +%Y%m%d-%H:%M:%S`.png
+# super+x
+#     import $HOME/Downloads/Pictures/screenshot-`/bin/date +%Y%m%d-%H:%M:%S`.png
+super + shift + s
+    $HOME/bin/scripts/screenshot
+super + alt + space
+    kitty --title ranger ranger
+super + shift + e
+	pkill -USR1 -x sxhkd
+alt + v
+    cd /home/root99/.config/nvim/ && kitty -e nvim init.lua
+alt + b
+    kitty -e nvim /home/root99/.config/X11/xinitrc
+alt + k
+    kitty -e nvim /home/root99/.config/sxhkd/sxhkdrc_dwm
+alt + m
+    rofi-beats
+#alt + s
+    #tdrop -ma -w -4  -s dropdown alacritty
+# alt + x
+#    polybar-msg cmd toggle
+super + a
+    kitty -e w2anime
+# super + shift + ctrl + e
+#     killall xinit
+alt + t
+    rofi-todo
+# super + w
+#     change-wallpaper.sh

@@ -1,0 +1,8 @@
+show=drun
+columns=2
+width=75%
+#no_actions=true
+allow_images=true
+insensitive=true
+image_size=40
+prompt=   Search...

@@ -1,0 +1,23 @@
+#!/bin/sh
+while read file
+do
+        case "$1" in
+        "C-d")
+                mv "$file" ~/.trash ;;
+        "C-r")
+                convert -rotate 270 "$file" "$file" ;;
+        "C-c")
+                echo -n "$file" | xclip -selection clipboard ;;
+        "C-w")
+            absolute_path=$(readlink -f "$file")
+            # notify-send $absolute_path
+            swww img $absolute_path --transition-type grow --transition-fps 60 --transition-pos bottom-right  --transition-duration 5 --transition-bezier .43,1.19,1,.4
+            # swaybg -i $absolute_path
+            # killall hyprpaper
+            # hyprctl hyprpaper preload $absolute_path
+            # hyprctl hyprpaper wallpaper "HDMI-A-2,$absolute_path"
+            # hyprctl hyprpaper unload all
+            # wal -i $absolute_path
+            ;;
+        esac
+done

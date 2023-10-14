@@ -1,0 +1,21 @@
+[netspeed]
+command=netspeed
+interval=1
+[temparature]
+command=echo -n "🔥" && temp
+interval=15
+[brightness]
+command=brightness
+interval=1
+[volume]
+command=sb-volume
+interval=1
+[battery]
+command=sb-battery
+interval=1
+[disk]
+command=disk
+interval=60
+[clock]
+command=echo -n "📅" && clock
+interval=60

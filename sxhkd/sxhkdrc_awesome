@@ -1,0 +1,67 @@
+#
+# wm independent hotkeys
+
+super + r
+rofi -show drun -show-icons -font "Hack 18"
+super + d 
+dmenu_run
+super + v
+rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -font "Hack 18"
+alt + n 
+kitty -e nmtui
+super + shift + b
+brave-browser-nightly
+super + shift + f   
+firefox
+super + n
+pcmanfm
+super + shift + n 
+sudo pcmanfm
+super + ctrl + n 
+dolphin
+super + shift + ctrl + l   
+i3lock-fancy
+XF86AudioRaiseVolume 
+pactl set-sink-volume @DEFAULT_SINK@ +5%
+XF86AudioLowerVolume
+pactl set-sink-volume @DEFAULT_SINK@ -5% 
+XF86AudioMute 
+pactl set-sink-mute @DEFAULT_SINK@ toggle
+alt+comma
+sh /home/root99/.config/rofi/launchers/misc/launcher.sh
+alt + p 
+sh /home/root99/.config/rofi/powermenu/powermenu.sh
+alt + space
+rofi -show combi
+super + ctrl + shift + x
+code
+super + shift + ctrl + r
+i3-nagbar -t warning -m 'do you want to reboot' -B 'Yes, reboot' reboot
+XF86MonBrightnessUp 
+xbacklight -inc 5         
+XF86MonBrightnessDown
+xbacklight -dec 5
+super+y 
+import -window root ~/Pictures/screenshot-`/bin/date +%Y%m%d-%H:%M:%S`.png
+super+x 
+import ~/Pictures/screenshot-`/bin/date +%Y%m%d-%H:%M:%S`.png
+super + alt + space
+kitty -e ranger 
+super + shift + r
+pkill -USR1 -x sxhkd
+alt + v
+kitty -e nvim /home/root99/.config/nvim/init.vim
+alt + b
+    kitty -e nvim /home/root99/.config/bspwm/bspwmrc
+alt + k 
+    kitty -e nvim /home/root99/.config/sxhkd/sxhkdrc
+alt + m
+    kitty -e mpd && kitty -e ncmpcpp
+alt + s
+    tdrop -ma -w -4 -h -2 -s dropdown kitty
+alt + x
+   sh $HOME/manual_installations_arch/suckless/pavanbhat1999-dwm/my-status/status.sh
+alt + z
+    sh $HOME/manual_installations_arch/suckless/pavanbhat1999-dwm/my-status/empty-status.sh
+super + shift + ctrl + e 
+    killall xinit

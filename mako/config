@@ -1,0 +1,6 @@
+background-color=#2A1D45
+default-timeout=5000
+font="Fira Code"
+border-size=1
+border-radius=25
+max-visible=3

@@ -1,0 +1,268 @@
+; * System monitor dashboard
+(defwidget sys-manager []
+  (
+    box :orientation "vertical" :class "sys-manager-class" :space-evenly false
+    (button :halign "end"  :class "close-btn" :onclick "eww close sys-manager-window"
+      "X"
+    )
+        (calendar :class "calender-class" :vexpand true)
+        (label :halign "center" :class "sys-label" :text "🔹${timelong}")
+        (label :text "_________________")
+        (eventbox :class "sys time" :onclick "hyprctl dispatch exec pavucontrol" :onscroll "/home/root99/.config/eww/scripts/volumecontrol {}"
+        (label :text "${volume-ctrl}")
+        )
+        (label :text "${round(EWW_NET.wlp3s0.NET_DOWN/1000,2)}  ")
+        (label :text "${round(EWW_CPU.avg,0)} 󰻠 ")
+        (circular-progress :class "sys" :value "${round(EWW_CPU.avg,0)}" :thinckness 5 :start-at 0 :clockwise false :height 25 :width 25 :halign "center" :valign "center"
+        (label :text "${round(EWW_CPU.avg,0)}")
+        )
+        (label :text "${round(EWW_RAM.used_mem_perc,0)} 🖴 ")
+        (label :text "${EWW_TEMPS.ACPITZ_TEMP1} 󰔄 ")
+        (label :text "${EWW_BATTERY.BAT0.status !='Charging' ? "${EWW_BATTERY.BAT0.capacity}   " : "${EWW_BATTERY.BAT0.capacity}   " }")
+  )
+)
+(defwindow sys-manager-window
+  :monitor 1
+  :stacking "fg"
+  :namespace "eww-sys"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "0%"
+    :height "0%"
+    :anchor "top right"
+  )
+  (sys-manager)
+)
+
+(defwidget dynamic []
+  (
+    box :orientation "horizontal" :class "dynamic-class" :space-evenly false
+    (button :class "calender-class" :onclick "eww open sys-manager-window" "${time}")
+  )
+)
+(defwindow dynamic-window
+  :monitor 1
+  :stacking "fg"
+  :namespace "eww-sys"
+  ; :exclusive "true"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "0%"
+    :height "0%"
+    :anchor "top center"
+  )
+  (dynamic)
+)
+; media player widget and window
+(defvar media-player-show false)
+(defpoll media-title :interval "1s" "bash media.sh title")
+(defpoll media-cover-path :interval "1s" "bash media.sh coverloc")
+(defwidget media-player []
+  (box
+    :orientation "vertical" :space-evenly "false"
+
+    :class "media-player-class"
+    ;; NOTE: Close button not required created toggle script
+    ;; (button :halign "end" :valign "center" :class "close-btn" :onclick "eww close media-player-window"
+    ;;   "X"
+    ;; )
+  (image :class "cover-img" :path "${media-cover-path}" :image-width "100" :image-height "100")
+  (label :text "${media-title}" :limit-width "30")
+  (box :halign "center" :spacing 5 :orientation "horizontal" :space-evenly "false"
+    (button :class "pause-btn" :onclick "playerctl previous"
+      "󰒮"
+    )
+    (button  :class "pause-btn" :onclick "playerctl play-pause"
+      "󰐎"
+    )
+    (button  :class "pause-btn" :onclick "playerctl next"
+      "󰒭"
+    )
+    ;; (button  :class "pause-btn" :onclick "playerctl shuffle toggle"
+    ;;   "󰒟"
+    ;; )
+  )
+)
+)
+(defwindow media-player-window
+  :monitor 1
+  :stacking "fg"
+  :namespace "eww-media-player"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "0%"
+    :height "0%"
+    :anchor "bottom right"
+  )
+  (media-player)
+)
+;; NOTE: wallpaper widget and window
+(defwidget wallpaper-widget []
+  (image :path "/home/root99/Downloads/tmpWall/ayangoat.jpg" :image-width "1920" :image-height "1080")
+)
+(defwindow wallpaper-window
+:monitor 1
+:stacking "bg"
+:namespace "eww-wallpaper"
+:geometry ( geometry
+  :x "0%"
+  :y "0%"
+  :width "100%"
+  :height "100%"
+  :anchor "center"
+)
+(wallpaper-widget)
+)
+
+(defwindow wallpaper-window1
+:monitor 0
+:stacking "bg"
+:namespace "eww-wallpaper"
+:geometry ( geometry
+  :x "0%"
+  :y "0%"
+  :width "100%"
+  :height "100%"
+  :anchor "center"
+)
+(wallpaper-widget)
+)
+
+
+; * my entertainement window -- still in progress----------------------
+(defwindow my-watchlist-window
+  :monitor 0
+  :geometry (geometry :x "0%"
+    :y "50%"
+    :width "0%"
+    :height "30px"
+  :anchor "top center")
+  :stacking "fg"
+  :reserve (struts :distance "40px" :side "top")
+  :windowtype "dock"
+  :wm-ignore false
+  (my-watchlist-widget :text "Watch Series"
+  :name "root99"))
+(defwidget my-watchlist-widget [?text name]
+  (box :orientation "vertical"
+    :halign "center"
+    :class "main"
+    text
+    (button :class "btn1"
+      :onclick "play-witcher.sh & eww close-all"
+    "Play Witcher")
+    (button :class "btn2"
+      :onclick "play-witcher.sh & eww close-all"
+    "Play Something else")
+  ))
+
+;-----------------------------------------------------------------------
+; * NOTE:This is the bar window for both monitors
+(defwindow bar
+  :monitor 1
+  :windowtype "dock"
+  :namespace "eww"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "30px"
+  :anchor "bottom center")
+  :reserve (struts :side "top" :distance "4%")
+  :stacking "fg"
+  :exclusive true
+  (workspaces))
+
+
+(defwindow workspaces-window
+  :monitor 1
+  :windowtype "dock"
+  :namespace "eww"
+  :geometry (geometry :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "30px"
+    :anchor "bottom center"
+  )
+  :reserve (struts :distance "4%" :side "top")
+  :stacking "fg"
+  :exclusive true
+  (workspaces)
+)
+
+(defpoll time :interval "60s"
+'date "+%I:%M %p"')
+(defpoll timelong :interval "60s"
+'date "+%a %b %d %I:%M %p %Y"')
+;; NOTE: Not used
+(defpoll volume-ctrl :interval "1s" "bash ~/.config/eww/scripts/volumecontrol")
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(deflisten window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
+(defwidget workspaces []
+  (box :class "main"
+    (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+      (box :class "workspaces" :halign "start" :space-evenly true
+        (label :text "${workspaces}${current_workspace}" :visible false)
+        (for workspace in workspaces
+          ; (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :visible "${workspace.windows > 0 ? "true":"true"}"
+              ;; NOTE: For dynamic and static workspaces
+            (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :visible "${workspace.windows > 0 ? "true": "${workspace.id==current_workspace ? true :"false"}"}"
+              (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+                ;; (label :text "${workspace.windows > 0 ? "${workspace.id}" : ""}")
+                ;; (label :text "${workspace.id==1 ? "1:" : "${workspace.id==2 ? "2:" : "${workspace.id==3 ? "3" : "test"}"}"}")
+                ;; (label  :text "${workspace.windows > 0 ? "" : ""}"   )
+                ;;(label :text "${workspace.id}")
+                (label :text
+                  "${workspace.id==1 ? "1:" :
+                  "${workspace.id==2 ? "2:" :
+                  "${workspace.id==3 ? "3:" :
+                  "${workspace.id==4 ? "4:󰨞" :
+                  "${workspace.id==5 ? "5:" :
+                  "${workspace.id==6 ? "6:󰙯" :
+                  "${workspace.id==7 ? "7:" :
+                  "${workspace.id==8 ? "8:" :
+                  "${workspace.id==9 ? "9:󰓇" :
+                  ""
+                }"}"}"}"}"}"}"}"}"
+                )
+              )
+            )
+          )
+        )
+      )
+      (box :halign "center"
+        (label :text "${window}" :limit-width "40")
+      )
+      (box :halign "end" :hexpand "false" :space-evenly "false"
+        ;; (label :class "sys cpu" :text "${round(EWW_CPU.avg,0)}% 󰻠 ")
+        (circular-progress :class "sys cpu" :value "${round(EWW_CPU.avg,0)}" :thinckness 10 :start-at 0 :clockwise false :height 40 :width 40 :halign "center" :valign "center" :tooltip "CPU"
+        (label :text "${round(EWW_CPU.avg,0)}")
+        )
+        (circular-progress :class "sys ram" :value "${round(EWW_RAM.used_mem_perc,0)}" :thinckness 10 :start-at 0 :clockwise false :height 40 :width 40 :halign "center" :valign "center" :tooltip "RAM"
+        (label :text "${round(EWW_RAM.used_mem_perc,0)}")
+        )
+        ;; (label :class "sys ram" :text "${round(EWW_RAM.used_mem_perc,0)}% 🖴 ")
+        (circular-progress :class "sys bat" :value "${round(EWW_BATTERY.BAT0.capacity,0)}" :thinckness 10 :start-at 0 :clockwise false :height 40 :width 40 :halign "center" :valign "center" :tooltip "${EWW_BATTERY.BAT0.capacity} %, ${EWW_BATTERY.BAT0.status} "
+        (label :text "${EWW_BATTERY.BAT0.status !='Charging' ? " " : " " }")
+        )
+        ; (label :class "sys bat" :text "${EWW_BATTERY.BAT0.status !='Charging' ? "${EWW_BATTERY.BAT0.capacity}  " : "${EWW_BATTERY.BAT0.capacity}  " }")
+        (label :class "sys wifi" :text "${round(EWW_NET.wlp3s0.NET_DOWN/1000,2)}KB ⥮" :tooltip "NET SPEED")
+        (label :class "sys temp" :text "${EWW_TEMPS.ACPITZ_TEMP1} 󰔄 ")
+        (label :class "sys time" :text "${time}  ")
+        (button :onclick "${media-player-show==false ? "eww update media-player-show=true && eww open media-player-window" : "eww update media-player-show=false && eww close media-player-window"}" "󰓇")
+        ; (button :onclick "hyprctl dispatch exec pavucontrol" "🔉")
+        (button :class "sys-inside"
+          :onclick "eww open sys-manager-window"
+          " "
+        )
+      )
+      ;; (box :halign "end"
+        ;;   (label :text "🔹RAM:${EWW_RAM.used_mem_perc}%🔹CPU:${EWW_CPU.avg} 🔹Net: ${EWW_NET.wlp3s0.NET_DOWN/100} 🔹${time}")
+      ;; )
+
+    )
+  )
+

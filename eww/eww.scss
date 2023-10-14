@@ -1,0 +1,125 @@
+//  * {
+//  	all: unset;
+// 	}
+.main{
+	// background-color: #24283B;
+	background-color: rgba(36, 40, 59, 0.75);
+	padding: 0px;
+}
+.empty{
+	// background-color: black;
+
+}
+.occupied{
+	// background-color: rgb(18, 27, 62);
+	// font-weight: bolder;
+	// font-size: large;
+	// color: cyan;
+    color: #c0caf5;
+}
+.current{
+	background-color: #7aa2f7;
+    color: #24283b;
+	// font-weight: bolder;
+}
+.workspaces{
+	background-color: #24283b;
+	// margin: 5px;
+    margin-left:10px;
+    border-radius:5px;
+}
+.workspace-entry{
+	// margin-left: 10px;
+    padding: 5px 10px;
+    border-radius:5px;
+}
+
+
+// *styling for sys monitor
+
+.sys-manager-class{
+	all: unset;
+	padding: 25px;
+	border: 2px solid #3f71dc;
+	border-radius: 15%;
+	background-color: rgba(24, 29, 83, 0.4);
+}
+.dynamic-class{
+	all: unset;
+	padding: 10px;
+	border: 2px solid #3f71dc;
+	border-radius: 40px;
+	background-color: rgba(24, 29, 83, 0.4);
+}
+.calender-class{
+	// all: unset;
+	// padding: 25px;
+	// border: 2px solid #3f71dc;
+	border-radius: 10%;
+	background-color: rgba(24, 29, 83, 0.4);
+}
+.media-player-class{
+	all: unset;
+	padding: 25px;
+	border: 2px solid #3f71dc;
+	border-radius: 25%;
+	background-color: rgba(24, 29, 83, 0.75);
+	// animation-name: example;
+	// animation-duration: 15s;
+    // background: rgb(24,29,83);
+    // background: linear-gradient(90deg, rgba(2,46,36,1) 0%, rgba(9,9,121,1) 22%, rgba(11, 48, 56,1) 82%);
+}
+.pause-btn{
+    all:unset;
+	background-color: #24283B;
+    border-radius:10px;
+    padding: 10px;
+}
+.cover-img{
+    border-radius:10px;
+}
+@keyframes example {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+.background{
+	all: unset;
+}
+.sys-inside{
+    // all: unset;
+
+}
+.sys{
+    padding: 0px 5px;
+    margin: 0px 5px;
+    border-radius: 25%;
+    background:rgba(36,40,59,0.5);
+}
+.wifi{
+    color: #7AA2F7;
+}
+.cpu{
+    color: #9ECE6A;
+}
+.ram{
+    color: #BB9AF7;
+}
+.temp{
+    color: #F7768E;
+}
+.bat{
+    color: #7DCFFF;
+}
+.time{
+    color: #E0AF68;
+}
+
+.close-btn{
+    all:unset;
+	border: 1px solid black;
+	background-color: rgb(255, 71, 132,1);
+	padding: 0px 3px;
+	border-radius: 50%;
+    color:#c0caf5;
+	//display: inline-block;
+}
