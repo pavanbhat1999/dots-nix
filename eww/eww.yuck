@@ -1,39 +1,6 @@
+(include './sys-manager.yuck')
+(include './launcher.yuck')
 ; * System monitor dashboard
-(defwidget sys-manager []
-  (
-    box :orientation "vertical" :class "sys-manager-class" :space-evenly false
-    (button :halign "end"  :class "close-btn" :onclick "eww close sys-manager-window"
-      "X"
-    )
-        (calendar :class "calender-class" :vexpand true)
-        (label :halign "center" :class "sys-label" :text "🔹${timelong}")
-        (label :text "_________________")
-        (eventbox :class "sys time" :onclick "hyprctl dispatch exec pavucontrol" :onscroll "/home/root99/.config/eww/scripts/volumecontrol {}"
-        (label :text "${volume-ctrl}")
-        )
-        (label :text "${round(EWW_NET.wlp3s0.NET_DOWN/1000,2)}  ")
-        (label :text "${round(EWW_CPU.avg,0)} 󰻠 ")
-        (circular-progress :class "sys" :value "${round(EWW_CPU.avg,0)}" :thinckness 5 :start-at 0 :clockwise false :height 25 :width 25 :halign "center" :valign "center"
-        (label :text "${round(EWW_CPU.avg,0)}")
-        )
-        (label :text "${round(EWW_RAM.used_mem_perc,0)} 🖴 ")
-        (label :text "${EWW_TEMPS.ACPITZ_TEMP1} 󰔄 ")
-        (label :text "${EWW_BATTERY.BAT0.status !='Charging' ? "${EWW_BATTERY.BAT0.capacity}   " : "${EWW_BATTERY.BAT0.capacity}   " }")
-  )
-)
-(defwindow sys-manager-window
-  :monitor 1
-  :stacking "fg"
-  :namespace "eww-sys"
-  :geometry (geometry
-    :x "0%"
-    :y "0%"
-    :width "0%"
-    :height "0%"
-    :anchor "top right"
-  )
-  (sys-manager)
-)
 
 (defwidget dynamic []
   (
@@ -205,6 +172,8 @@
   (box :class "main"
     (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
       (box :class "workspaces" :halign "start" :space-evenly true
+        ; (button :class "launcher-class" :onclick "eww open launcher-window" "󰀻")
+        (button :onclick "${launcher-show==false ? "eww update launcher-show=true && eww open launcher-window" : "eww update launcher-show=false && eww close launcher-window"}" "󰀻")
         (label :text "${workspaces}${current_workspace}" :visible false)
         (for workspace in workspaces
           ; (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :visible "${workspace.windows > 0 ? "true":"true"}"

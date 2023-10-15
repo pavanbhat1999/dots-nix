@@ -1,3 +1,5 @@
+@import './sys-manager.scss';
+@import './launcher.scss';
 //  * {
 //  	all: unset;
 // 	}
@@ -37,12 +39,18 @@
 
 // *styling for sys monitor
 
-.sys-manager-class{
-	all: unset;
-	padding: 25px;
-	border: 2px solid #3f71dc;
-	border-radius: 15%;
-	background-color: rgba(24, 29, 83, 0.4);
+// .sys-manager-class{
+// 	all: unset;
+// 	padding: 25px;
+// 	border: 2px solid #3f71dc;
+// 	border-radius: 15%;
+// 	background-color: rgba(24, 29, 83, 0.4);
+// }
+.sys{
+    padding: 0px 5px;
+    margin: 0px 5px;
+    border-radius: 25%;
+    background:rgba(36,40,59,0.5);
 }
 .dynamic-class{
 	all: unset;
@@ -88,12 +96,6 @@
 .sys-inside{
     // all: unset;
 
-}
-.sys{
-    padding: 0px 5px;
-    margin: 0px 5px;
-    border-radius: 25%;
-    background:rgba(36,40,59,0.5);
 }
 .wifi{
     color: #7AA2F7;

@@ -1,0 +1,23 @@
+(defvar launcher-show false)
+(defwidget launcher-widget []
+  (
+    box :orientation "horizontal" :class "dynamic-class" :space-evenly true
+  (button :onclick "brave" "Brave")
+  (button :onclick "dolphin" "File-Explorer")
+  (button :onclick "code" "VSCode")
+  )
+)
+(defwindow launcher-window
+  :monitor 1
+  :stacking "fg"
+  :namespace "eww-sys"
+  ; :exclusive "true"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "50%"
+    :height "50%"
+    :anchor "bottom left"
+  )
+  (launcher-widget)
+)
