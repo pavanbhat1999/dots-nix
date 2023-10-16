@@ -1,7 +1,9 @@
 .app-icon{
-    all: unset;
+    // all: unset;
     font-size:xx-large;   
-    padding: 5px;
+    padding: 10px;
+    border-radius: 25px;
+    background-color: transparent;
 }
 .app-icon:hover{
     color: #f7768e;

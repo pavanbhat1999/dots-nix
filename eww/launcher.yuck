@@ -1,11 +1,12 @@
 (defvar launcher-show false)
 (defwidget launcher-widget []
-  (
-    box :orientation "vertical" :class "dynamic-class" :space-evenly false
-  (button :class "app-icon" :onclick "brave" "")
-  (button :class "app-icon" :onclick "hyprctl dispatch exec dolphin" "")
-  (button :class "app-icon" :onclick "code" "󰨞")
-  )
+    (
+      box :orientation "vertical" :class "dynamic-class" :space-evenly false
+      (button :class "app-icon" :onclick "brave & eww close launcher-window" "")
+      (button :class "app-icon" :onclick "hyprctl dispatch exec dolphin & eww close launcher-window" "")
+      (button :class "app-icon" :onclick "code & eww close launcher-window" "󰨞")
+      (button :class "app-icon" :onclick "com.spotify.Client & eww close launcher-window" "󰓇")
+    )
 )
 (defwindow launcher-window
   :monitor 1
