@@ -1,10 +1,10 @@
 (defvar launcher-show false)
 (defwidget launcher-widget []
   (
-    box :orientation "horizontal" :class "dynamic-class" :space-evenly true
-  (button :onclick "brave" "Brave")
-  (button :onclick "dolphin" "File-Explorer")
-  (button :onclick "code" "VSCode")
+    box :orientation "vertical" :class "dynamic-class" :space-evenly false
+  (button :class "app-icon" :onclick "brave" "")
+  (button :class "app-icon" :onclick "hyprctl dispatch exec dolphin" "")
+  (button :class "app-icon" :onclick "code" "󰨞")
   )
 )
 (defwindow launcher-window
@@ -15,8 +15,8 @@
   :geometry (geometry
     :x "0%"
     :y "0%"
-    :width "50%"
-    :height "50%"
+    :width "0%"
+    :height "0%"
     :anchor "bottom left"
   )
   (launcher-widget)
