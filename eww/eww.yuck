@@ -1,27 +1,8 @@
 (include './sys-manager.yuck')
 (include './launcher.yuck')
+(include './dynamic-island.yuck')
 ; * System monitor dashboard
 
-(defwidget dynamic []
-  (
-    box :orientation "horizontal" :class "dynamic-class" :space-evenly false
-    (button :class "calender-class" :onclick "eww open sys-manager-window" "${time}")
-  )
-)
-(defwindow dynamic-window
-  :monitor 1
-  :stacking "fg"
-  :namespace "eww-sys"
-  ; :exclusive "true"
-  :geometry (geometry
-    :x "0%"
-    :y "0%"
-    :width "0%"
-    :height "0%"
-    :anchor "top center"
-  )
-  (dynamic)
-)
 ; media player widget and window
 (defvar media-player-show false)
 (defpoll media-title :interval "1s" "bash media.sh title")
@@ -31,7 +12,7 @@
     :orientation "vertical" :space-evenly "false"
     
     :class "media-player-class"
-    ;; NOTE: Close button not required created toggle script
+    ;;! NOTE: Close button not required created toggle script
     ;; (button :halign "end" :valign "center" :class "close-btn" :onclick "eww close media-player-window"
       ;;   "X"
     ;; )
@@ -66,7 +47,7 @@
   )
   (media-player)
 )
-;; NOTE: wallpaper widget and window
+; * wallpaper widget and window
 (defwidget wallpaper-widget []
   (image :path "/home/root99/Downloads/tmpWall/ayangoat.jpg" :image-width "1920" :image-height "1080")
 )
@@ -127,7 +108,7 @@
   ))
 
 ;-----------------------------------------------------------------------
-; * NOTE:This is the bar window for both monitors
+; ? NOTE:This is the bar window for both monitors
 (defwindow bar
   :monitor 1
   :windowtype "dock"

@@ -1,0 +1,20 @@
+(defwidget dynamic []
+  (
+    box :orientation "horizontal" :class "dynamic-class" :space-evenly false
+    (button :class "calender-class" :onclick "eww open sys-manager-window" "${time}")
+  )
+)
+(defwindow dynamic-window
+  :monitor 1
+  :stacking "fg"
+  :namespace "eww-sys"
+  ; :exclusive "true"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "0%"
+    :height "0%"
+    :anchor "top center"
+  )
+  (dynamic)
+)

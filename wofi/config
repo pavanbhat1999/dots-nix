@@ -1,7 +1,7 @@
 show=drun
-columns=2
+columns=4
 width=75%
-#no_actions=true
+no_actions=true
 allow_images=true
 insensitive=true
 image_size=40
