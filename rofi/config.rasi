@@ -2,7 +2,7 @@
 
 configuration {
   show-icons:         true;
-  icon-theme:         "fancy";
+  //icon-theme:         "fancy";
   matching: "fuzzy";
   sort-method: "fuzzy";
   font:"Fira Code Retina 14";

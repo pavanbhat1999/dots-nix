@@ -21,7 +21,8 @@
     selected-urgent-foreground: @foreground;
 
     background-color: @background;
-    background: #24283B;
+    //background: #24283B;
+    background: rgba(34, 42, 65, 0.0);
     foreground: #cbc4e5;
     border-color: @background;
     spacing: 2;
@@ -29,7 +30,9 @@
 
 #window {
     background-color: @background;
-    border: 0;
+    border: 1;
+    border-color:red;
+    border-radius: 10px;
     padding: 2.5ch;
 }
 
@@ -70,7 +73,7 @@
 
 #element {
     border: 0;
-    padding: 1px;
+    padding: 5px;
 }
 
 #element.normal.normal {
