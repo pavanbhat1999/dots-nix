@@ -155,7 +155,7 @@
       (box :class "workspaces" :halign "start" :space-evenly true
         ; (button :class "launcher-class" :onclick "eww open launcher-window" "󰀻")
           ; (button :onclick "${launcher-show==false ? "eww update launcher-show=true && eww open launcher-window" : "eww update launcher-show=false && eww close launcher-window"}" "󰀻")
-          (button :onclick "/home/root99/.config/rofi/launchers/type-7/launcher.sh" "󰀻")
+          (eventbox :onhover "/home/root99/.config/rofi/launchers/type-7/launcher.sh" "󰀻")
         (label :text "${workspaces}${current_workspace}" :visible false)
         (for workspace in workspaces
           ; (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}" :visible "${workspace.windows > 0 ? "true":"true"}"

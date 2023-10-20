@@ -22,7 +22,7 @@
 
     background-color: @background;
     //background: #24283B;
-    background: rgba(34, 42, 65, 0.0);
+    background: rgba(34, 42, 65, 0.5);
     foreground: #cbc4e5;
     border-color: @background;
     spacing: 2;
