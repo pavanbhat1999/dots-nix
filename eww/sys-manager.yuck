@@ -12,7 +12,7 @@
       (eventbox :class "sys time" :onclick "hyprctl dispatch exec pavucontrol" :onscroll "/home/root99/.config/eww/scripts/volumecontrol {}"
         (label :text "${volume-ctrl}")
       )
-      (label :text "${round(EWW_NET.wlp3s0.NET_DOWN/1000,2)}  ")
+      (label :text "${round(EWW_NET.wlp3s0.NET_UP/1000,2)}  ")
       (label :text "${round(EWW_CPU.avg,0)} 󰻠 ")
       (circular-progress :class "sys" :value "${round(EWW_CPU.avg,0)}" :thinckness 5 :start-at 0 :clockwise false :height 25 :width 25 :halign "center" :valign "center"
         (label :text "${round(EWW_CPU.avg,0)}")
