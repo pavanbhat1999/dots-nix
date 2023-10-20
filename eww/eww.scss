@@ -5,8 +5,12 @@
 // 	}
 .main{
 	// background-color: #24283B;
-	background-color: rgba(36, 40, 59, 0.75);
-	padding: 0px;
+	background-color: rgba(36, 40, 59, 0.50);
+	// background: linear-gradient(to right, #00274e, #003366);
+    // backdrop-filter: blur(10px); /* Apply a blur effect */// 
+	padding: 1px;
+	border: 1.5px solid #7aa2f7;
+	border-radius: 15px;
 }
 .empty{
 	// background-color: black;
@@ -25,10 +29,10 @@
 	// font-weight: bolder;
 }
 .workspaces{
-	background-color: #24283b;
+	// background-color: #24283b;
 	// margin: 5px;
-    margin-left:10px;
-    border-radius:5px;
+    // margin-left:10px;
+    // border-radius:5px;
 }
 .workspace-entry{
 	// margin-left: 10px;

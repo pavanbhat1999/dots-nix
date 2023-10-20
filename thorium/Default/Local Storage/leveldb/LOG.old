@@ -1,0 +1,5 @@
+2023/10/18-07:39:57.819 3 Reusing MANIFEST /home/root99/.config/thorium/Default/Local Storage/leveldb/MANIFEST-000001
+2023/10/18-07:39:57.820 3 Recovering log #3
+2023/10/18-07:39:57.821 3 Level-0 table #3: started
+2023/10/18-07:39:57.824 3 Level-0 table #3: 66753 bytes OK
+2023/10/18-07:39:57.827 3 Delete type=0 #3
