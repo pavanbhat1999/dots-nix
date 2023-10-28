@@ -4,13 +4,14 @@
   `scripts/windows.sh`)
 
 (defwidget windows_widget []
-  (box
+  (eventbox
+    :onhoverlost "eww --config $HOME/.config/eww/hyprmsn close hyprmsn"
     (literal :content windows)
   )
 )
 
 (defwindow hyprmsn
-  :monitor 0
+  :monitor 1
   :geometry (geometry
     :x "0%"
     :y "0%"

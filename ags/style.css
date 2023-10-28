@@ -1,0 +1,60 @@
+label {
+    /* font-weight: bold; */
+}
+button{
+    all:unset;
+}
+
+.workspaces button,
+.media {
+    /* background-color: transparent; */
+    /* color: #eee; */
+    border-radius:5px;
+    padding:0px 10px;
+}
+
+.workspaces button:hover,
+.media:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #efefef;
+}
+
+.workspaces button:active,
+.media:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    /* color: #fff; */
+}
+
+.workspaces .current-workspace{
+    /* all:unset; */
+    /* border: 1px solid aqua; */
+	background-color: #7aa2f7;
+    color: #24283b;
+}
+.workspaces button.focused {
+    border-bottom: 3px solid aqua;
+}
+
+.client-title {
+    margin-left: 1em;
+    color: aqua;
+}
+
+.notification image {
+    color: yellow;
+    margin-left: 1em;
+}
+
+.battery progressbar {
+    margin: 0 6px;
+}
+
+.clock {
+    margin: 0 6px;
+    font-size: 1.1em;
+}
+
+progress, highlight {
+    background-color: aqua;
+    min-height: 8px;
+}

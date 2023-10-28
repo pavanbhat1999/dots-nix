@@ -7,6 +7,13 @@ configuration {
   sort-method: "fuzzy";
   font:"Fira Code Retina 14";
   combi-modi: "window,drun,ssh";
+  modes:"window,drun,run,ssh,combi";
+  window-thumbnail:true;
+  //kb-accept-entry:"!Super-Tab,!Alt+Alt_L,Return";
+  //kb-row-down:"Super-Tab";
+  //kb-select-1:"Control-3";
+  //kb-accept-alt:"Return";
+  //kb-element-next:"";
 }
 //@import "/usr/share/rofi/themes/fancy.rasi"
 //@theme "/usr/share/rofi/themes/DarkBlue.rasi"

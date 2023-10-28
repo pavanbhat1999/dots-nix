@@ -1,0 +1,16 @@
+window {
+   /* background-image: url("output.jpg"); */
+   /* color: #1FD70E; */
+   /* filter: blur(8px); */
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   /* background-color: black; */
+}
+
+#window-box{
+    /* background-color : rgba(40, 22, 52,0.5); */
+    border-radius : 2rem;
+    padding: 25px;
+    /* color: black; */
+}

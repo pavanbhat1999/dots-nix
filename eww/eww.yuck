@@ -155,6 +155,8 @@
       (box :class "workspaces" :halign "start" :space-evenly true
         ; (button :class "launcher-class" :onclick "eww open launcher-window" "󰀻")
           (button :onclick "${launcher-show==false ? "eww update launcher-show=true && eww open launcher-window" : "eww update launcher-show=false && eww close launcher-window"}" "󰀻")
+          ; FIXME: below code not working
+          ; (button :onclick "${launcher-show==false ? "eww update launcher-show=true && /home/root99/.config/rofi/launchers/type-7/launcher.sh && disown" : "eww update launcher-show=false && pkill rofi"}" "󰀻")
           ; (button :onclick "/home/root99/.config/rofi/launchers/type-7/launcher.sh" "󰀻")
         (label :text "${workspaces}${current_workspace}" :visible false)
         (for workspace in workspaces
@@ -192,7 +194,7 @@
         (circular-progress :class "sys cpu" :value "${round(EWW_CPU.avg,0)}" :thinckness 10 :start-at 0 :clockwise false :height 40 :width 40 :halign "center" :valign "center" :tooltip "CPU"
           (label :text "${round(EWW_CPU.avg,0)}")
         )
-        (circular-progress :class "sys ram" :value "${round(EWW_RAM.used_mem_perc,0)}" :thinckness 10 :start-at 0 :clockwise false :height 40 :width 40 :halign "center" :valign "center" :tooltip "RAM"
+        (circular-progress :class "sys ram" :value "${round(EWW_RAM.used_mem_perc,0)}" :thinckness 10 :start-at 0 :clockwise false :height 40 :width 40 :halign "center" :valign "center" :tooltip "${round(EWW_RAM.used_mem/1000000,0)} MB"
           (label :text "${round(EWW_RAM.used_mem_perc,0)}")
         )
         ;; (label :class "sys ram" :text "${round(EWW_RAM.used_mem_perc,0)}% 🖴 ")
@@ -203,7 +205,7 @@
         (label :class "sys wifi" :text "${round(EWW_NET.wlp3s0.NET_DOWN/1000,2)}KB ⥮" :tooltip "NET SPEED")
         (label :class "sys temp" :text "${EWW_TEMPS.ACPITZ_TEMP1} 󰔄 ")
         (label :class "sys time" :text "${time}  ")
-        (button :class "sys ram" :onclick "swaync-client -t sw" "")
+        (button :class "sys ram" :onclick "sleep 0.1 ; swaync-client -t sw" "")
         ; (button :onclick "${media-player-show==false ? "eww update media-player-show=true && eww open media-player-window" : "eww update media-player-show=false && eww close media-player-window"}" "󰓇")
         ; (button :onclick "hyprctl dispatch exec pavucontrol" "🔉")
         (eventbox :class "sys cpu"
