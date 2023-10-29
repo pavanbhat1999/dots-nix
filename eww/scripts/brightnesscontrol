@@ -26,14 +26,14 @@ case $1 in
   up)
     # increase the backlight by 5%
     light -A 5
-    send_notification
-    canberra-gtk-play -i audio-volume-change
+    # send_notification
+    # canberra-gtk-play -i audio-volume-change
     ;;
   down)
     # decrease the backlight by 5%
     light -U 5
-    send_notification
-    canberra-gtk-play -i audio-volume-change
+    # send_notification
+    # canberra-gtk-play -i audio-volume-change
     ;;
   *)
     brightness=$(light -G)

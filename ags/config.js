@@ -7,8 +7,15 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import { exec, execAsync,timeout } from 'resource:///com/github/Aylur/ags/utils.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Network from 'resource:///com/github/Aylur/ags/service/network.js';
+import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+import Brightness from './brightness.js';
+import icons from './icons.js';
+import {
+    NotificationList, DNDSwitch, ClearButton, PopupList,
+} from './widgets.js';
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, just make it a function
@@ -26,6 +33,75 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 //         }));
 //     }]],
 // });
+
+const Header = () => Widget.Box({
+    className: 'header',
+    children: [
+        Widget.Label('Do Not Disturb'),
+        DNDSwitch(),
+        Widget.Box({ hexpand: true }),
+        ClearButton(),
+    ],
+});
+
+const NotificationCenter = () => Widget.Window({
+    name: 'notification-center',
+    anchor: ['right', 'top', 'bottom'],
+    popup: true,
+    focusable: true,
+    child: Widget.Box({
+        children: [
+            Widget.EventBox({
+                hexpand: true,
+                connections: [['button-press-event', () =>
+                    App.closeWindow('notification-center')]]
+            }),
+            Widget.Box({
+                vertical: true,
+                children: [
+                    Header(),
+                    NotificationList(),
+                ],
+            }),
+        ],
+    }),
+});
+
+const NotificationsPopupWindow = () => Widget.Window({
+    name: 'popup-window',
+    anchor: ['top'],
+    child: PopupList(),
+});
+
+timeout(500, () => execAsync([
+    'notify-send',
+    'Notification Center example',
+    'To have the panel popup run "ags toggle-window notification-center"' +
+    '\nPress ESC to close it.',
+]).catch(console.error));
+
+const WifiIndicator = () => Widget.Box({
+    children: [
+        Widget.Icon({
+            binds: [['icon', Network.wifi, 'icon-name']],
+        }),
+        Widget.Label({
+            binds: [['label', Network.wifi, 'ssid']],
+        }),
+    ],
+});
+
+const WiredIndicator = () => Widget.Icon({
+    binds: [['icon', Network.wired, 'icon-name']],
+});
+
+const NetworkIndicator = () => Widget.Stack({
+    items: [
+        ['wifi', WifiIndicator()],
+        ['wired', WiredIndicator()],
+    ],
+    binds: [['shown', Network, 'primary', p => p || 'wifi']],
+});
 
 const focusedTitle = Widget.Label({
     binds: [
@@ -53,7 +129,7 @@ const Workspaces = () => Widget.EventBox({
         className: 'workspaces',
         children: Array.from({ length: 10 }, (_, i) => i + 1).map(i => Widget.Button({
             setup: btn => btn.id = i,
-            label: ` ${i} : ${testVar[`${i}`]}`,
+            label: ` ${i}: ${testVar[`${i}`]}`,
             onClicked: () => dispatch(i),
             // className: Hyprland.active.workspace.id == i ? 'focused' : '',
         })),
@@ -76,10 +152,10 @@ const Clock = () => Widget.Label({
     connections: [
         // this is bad practice, since exec() will block the main event loop
         // in the case of a simple date its not really a problem
-        [1000, self => self.label = exec('date "+%H:%M:%S %b %e."')],
+        // [1000, self => self.label = exec('date "+%H:%M:%S %b %e."')],
 
         // this is what you should do
-        [1000, self => execAsync(['date', '+%H:%M:%S %b %e.'])
+        [1000, self => execAsync(['date', '+%I:%M %p %b %e.'])
             .then(date => self.label = date).catch(console.error)],
     ],
 });
@@ -120,9 +196,9 @@ const Media = () => Widget.Button({
     }),
 });
 
-const Volume = () => Widget.Box({
+const Volume = (type = 'speaker') => Widget.Box({
     className: 'volume',
-    style: 'min-width: 180px',
+    style: 'min-width: 100px',
     children: [
         Widget.Stack({
             items: [
@@ -133,10 +209,12 @@ const Volume = () => Widget.Box({
                 ['1', Widget.Icon('audio-volume-low-symbolic')],
                 ['0', Widget.Icon('audio-volume-muted-symbolic')],
             ],
+            // binds: [['tooltip-text', Audio,'speaker', v =>
+            //     `Volume ${Math.floor(v.volume * 100)}%`]],
             connections: [[Audio, self => {
                 if (!Audio.speaker)
                     return;
-
+                self.tooltipText = `Volume ${Math.floor(Audio[type].volume * 100)}%`;
                 if (Audio.speaker.isMuted) {
                     self.shown = '0';
                     return;
@@ -159,23 +237,48 @@ const Volume = () => Widget.Box({
     ],
 });
 
+const BrightnessSlider = () => Widget.Slider({
+    drawValue: false,
+    hexpand: true,
+    binds: [['value', Brightness, 'screen']],
+    onChange: ({ value }) => Brightness.screen = value,
+});
+const BrightnessWidget = () => Widget.Box({
+    className: 'slider',
+    style: 'min-width: 100px',
+    children: [
+        Widget.Icon({
+            icon: icons.brightness.indicator,
+            className: 'icon',
+            binds: [['tooltip-text', Brightness, 'screen', v =>
+                `Screen Brightness: ${Math.floor(v * 100)}%`]],
+        }),
+        BrightnessSlider(),
+    ],
+});
+
 const BatteryLabel = () => Widget.Box({
     className: 'battery',
     children: [
+
         Widget.Icon({
             connections: [[Battery, self => {
                 self.icon = `battery-level-${Math.floor(Battery.percent / 10) * 10}-symbolic`;
+                self.tooltipText = `Charging:${Battery.charging}`
             }]],
         }),
-        Widget.ProgressBar({
-            valign: 'center',
-            connections: [[Battery, self => {
-                if (Battery.percent < 0)
-                    return;
-
-                self.fraction = Battery.percent / 100;
-            }]],
+        Widget.Label({
+    binds: [['label', Battery, 'percent', p => `${p}%`]],
         }),
+        // Widget.ProgressBar({
+        //     valign: 'center',
+        //     connections: [[Battery, self => {
+        //         if (Battery.percent < 0)
+        //             return;
+        //
+        //         self.fraction = Battery.percent / 100;
+        //     }]],
+        // }),
     ],
 });
 
@@ -189,6 +292,86 @@ const SysTray = () => Widget.Box({
         }));
     }]],
 });
+//
+const notificationbtn = Widget.Button({
+    child: Widget.Label(' '),
+    onPrimaryClick: 'ags -t notification-center',
+});
+//
+//NOTE: RAM and CPU
+const divide = ([total, free]) => free / total;
+
+const cpu = Variable(0, {
+    poll: [2000, 'top -b -n 1', out => divide([100, out.split('\n')
+        .find(line => line.includes('Cpu(s)'))
+        .split(/\s+/)[1]
+        .replace(',', '.')])],
+});
+
+const ram = Variable(0, {
+    poll: [2000, 'free', out => divide(out.split('\n')
+        .find(line => line.includes('Mem:'))
+        .split(/\s+/)
+        .splice(1, 2))],
+});
+
+const cpuProgress = Widget.CircularProgress({
+   style:
+        'min-width: 30px;' + // its size is min(min-height, min-width)
+        'min-height: 30px;' +
+        'font-size: 1px;' + // to set its thickness set font-size on it
+        'margin: 0px;' + // you can set margin on it
+        'background-color: #131313;' + // set its bg color
+        'color: aqua;', // set its fg colo
+    binds: [['value', cpu]],
+    connections:[[cpu,self => {
+        self.tooltipText= 'CPU';
+    }]],
+    child: Widget.Label({
+        style:
+        'font-size:10px;',
+        binds:[
+        ['label', cpu, 'value', value => (Math.round(parseFloat(value.toString())*100)).toString()],
+        ]
+    }),
+});
+const ramProgress = Widget.CircularProgress({
+   style:
+        'min-width: 30px;' + // its size is min(min-height, min-width)
+        'min-height: 30px;' +
+        'font-size: 1px;' + // to set its thickness set font-size on it
+        'margin: 0px;' + // you can set margin on it
+        'background-color: #131313;' + // set its bg color
+        'color: aqua;', // set its fg colo
+    binds: [['value', ram]],
+    connections:[[cpu,self => {
+        self.tooltipText= `RAM`;
+    }]],
+    child: Widget.Label({
+        style:
+        'font-size:10px;',
+        binds:[
+        ['label', ram, 'value', value => (Math.round(parseFloat(value.toString())*100)).toString()],
+        ]
+    }),
+});
+// const label = Widget.Label({
+//     binds: [
+//         // [propName: string, variable: Variable]
+//         // this means that whenever myVar's value changes
+//         // Label.label will be updated
+//         ['label', cpu],
+//
+//         // you can specify a transform function like this
+//         ['label', cpu, 'value', value => Math.round(value).toString()],
+//     ],
+//     connections: [
+//         // can also be connected to
+//         [cpu, self => {
+//             self.label = Math.round(cpu.value).toString();
+//         }],
+//     ],
+// });
 
 // layout of the bar
 const Left = () => Widget.Box({
@@ -201,16 +384,21 @@ const Left = () => Widget.Box({
 const Center = () => Widget.Box({
     children: [
         Media(),
-        Notification(),
+        // Notification(),
     ],
 });
 
 const Right = () => Widget.Box({
     halign: 'end',
     children: [
+        cpuProgress,
+        ramProgress,
+        // label,
         Volume(),
+        BrightnessWidget(),
         BatteryLabel(),
         Clock(),
+        notificationbtn,
         SysTray(),
     ],
 });
@@ -219,7 +407,7 @@ const Bar = ({ monitor } = {}) => Widget.Window({
     name: `bar-${monitor}`, // name has to be unique
     className: 'bar',
     monitor,
-    anchor: ['top', 'left', 'right'],
+    anchor: ['bottom', 'left', 'right'],
     exclusive: true,
     child: Widget.CenterBox({
         startWidget: Left(),
@@ -232,10 +420,13 @@ const Bar = ({ monitor } = {}) => Widget.Window({
 export default {
     style: App.configDir + '/style.css',
     windows: [
-        Bar(),
+        // Bar(),
 
+        NotificationsPopupWindow(),
+        NotificationCenter(),
         // you can call it, for each monitor
         // Bar({ monitor: 0 }),
-        // Bar({ monitor: 1 })
+        Bar({ monitor: 1 }),
+        // Bar({ monitor: 0 }),
     ],
 };

@@ -1,3 +1,4 @@
+(defpoll brightness-ctrl :interval "1s" "bash ~/.config/eww/scripts/brightnesscontrol")
 (defwidget sys-manager []
   (eventbox
     :onhoverlost "eww close sys-manager-window"
@@ -11,6 +12,9 @@
       (label :text "_________________")
       (eventbox :class "sys time" :onclick "hyprctl dispatch exec pavucontrol" :onscroll "/home/root99/.config/eww/scripts/volumecontrol {}"
         (label :text "${volume-ctrl}")
+      )
+      (eventbox :class "sys time"  :onscroll "/home/root99/.config/eww/scripts/brightnesscontrol {}"
+        (label :text "${brightness-ctrl}")
       )
       (label :text "${round(EWW_NET.wlp3s0.NET_UP/1000,2)}  ")
       (label :text "${round(EWW_CPU.avg,0)} 󰻠 ")

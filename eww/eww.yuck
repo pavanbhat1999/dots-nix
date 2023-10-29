@@ -1,6 +1,7 @@
 (include './sys-manager.yuck')
 (include './launcher.yuck')
-(include './dynamic-island.yuck')
+; (include './dynamic-island.yuck')
+; (include './notifications.yuck')
 ; * System monitor dashboard
 
 ; media player widget and window
@@ -205,7 +206,7 @@
         (label :class "sys wifi" :text "${round(EWW_NET.wlp3s0.NET_DOWN/1000,2)}KB ⥮" :tooltip "NET SPEED")
         (label :class "sys temp" :text "${EWW_TEMPS.ACPITZ_TEMP1} 󰔄 ")
         (label :class "sys time" :text "${time}  ")
-        (button :class "sys ram" :onclick "sleep 0.1 ; swaync-client -t sw" "")
+        (button :class "sys ram" :onclick "sleep 0.15;swaync-client -t sw" "")
         ; (button :onclick "${media-player-show==false ? "eww update media-player-show=true && eww open media-player-window" : "eww update media-player-show=false && eww close media-player-window"}" "󰓇")
         ; (button :onclick "hyprctl dispatch exec pavucontrol" "🔉")
         (eventbox :class "sys cpu"
