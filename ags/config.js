@@ -209,8 +209,6 @@ const Volume = (type = 'speaker') => Widget.Box({
                 ['1', Widget.Icon('audio-volume-low-symbolic')],
                 ['0', Widget.Icon('audio-volume-muted-symbolic')],
             ],
-            // binds: [['tooltip-text', Audio,'speaker', v =>
-            //     `Volume ${Math.floor(v.volume * 100)}%`]],
             connections: [[Audio, self => {
                 if (!Audio.speaker)
                     return;
@@ -319,7 +317,7 @@ const cpuProgress = Widget.CircularProgress({
    style:
         'min-width: 30px;' + // its size is min(min-height, min-width)
         'min-height: 30px;' +
-        'font-size: 1px;' + // to set its thickness set font-size on it
+        'font-size: 5px;' + // to set its thickness set font-size on it
         'margin: 0px;' + // you can set margin on it
         'background-color: #131313;' + // set its bg color
         'color: aqua;', // set its fg colo
@@ -339,7 +337,7 @@ const ramProgress = Widget.CircularProgress({
    style:
         'min-width: 30px;' + // its size is min(min-height, min-width)
         'min-height: 30px;' +
-        'font-size: 1px;' + // to set its thickness set font-size on it
+        'font-size: 5px;' + // to set its thickness set font-size on it
         'margin: 0px;' + // you can set margin on it
         'background-color: #131313;' + // set its bg color
         'color: aqua;', // set its fg colo
