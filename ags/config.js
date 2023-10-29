@@ -16,6 +16,7 @@ import icons from './icons.js';
 import {
     NotificationList, DNDSwitch, ClearButton, PopupList,
 } from './widgets.js';
+// import applauncher from './applauncher.js';
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, just make it a function
@@ -422,6 +423,7 @@ export default {
 
         NotificationsPopupWindow(),
         NotificationCenter(),
+        // applauncher,
         // you can call it, for each monitor
         // Bar({ monitor: 0 }),
         Bar({ monitor: 1 }),
