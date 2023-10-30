@@ -144,7 +144,7 @@ const Workspaces = () => Widget.EventBox({
 const ClientTitle = () => Widget.Label({
     className: 'client-title',
     binds: [
-        ['label', Hyprland.active.client, 'title'],
+        ['label', Hyprland.active.client, 'title', t => `${t.slice(0,15)}`],
     ],
 });
 
@@ -282,6 +282,7 @@ const BatteryLabel = () => Widget.Box({
 });
 
 const SysTray = () => Widget.Box({
+    className: "sys-tray",
     connections: [[SystemTray, self => {
         self.children = SystemTray.items.map(item => Widget.Button({
             child: Widget.Icon({ binds: [['icon', item, 'icon']] }),
@@ -293,7 +294,7 @@ const SysTray = () => Widget.Box({
 });
 //
 const notificationbtn = Widget.Button({
-    child: Widget.Label(' '),
+    child: Widget.Label(' '),
     onPrimaryClick: 'ags -t notification-center',
 });
 //
@@ -318,7 +319,7 @@ const cpuProgress = Widget.CircularProgress({
    style:
         'min-width: 30px;' + // its size is min(min-height, min-width)
         'min-height: 30px;' +
-        'font-size: 5px;' + // to set its thickness set font-size on it
+        'font-size: 7px;' + // to set its thickness set font-size on it
         'margin: 0px;' + // you can set margin on it
         'background-color: #131313;' + // set its bg color
         'color: aqua;', // set its fg colo
@@ -338,7 +339,7 @@ const ramProgress = Widget.CircularProgress({
    style:
         'min-width: 30px;' + // its size is min(min-height, min-width)
         'min-height: 30px;' +
-        'font-size: 5px;' + // to set its thickness set font-size on it
+        'font-size: 7px;' + // to set its thickness set font-size on it
         'margin: 0px;' + // you can set margin on it
         'background-color: #131313;' + // set its bg color
         'color: aqua;', // set its fg colo

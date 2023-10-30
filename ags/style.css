@@ -1,3 +1,7 @@
+.bar{
+    border: 1px solid aqua;
+    border-radius : 10px;
+}
 label {
     /* font-weight: bold; */
 }
@@ -14,7 +18,7 @@ button{
     /* background-color: transparent; */
     /* color: #eee; */
     border-radius:5px;
-    padding:0px 5px;
+    padding: 10px 10px;
 }
 
 .workspaces button:hover,
@@ -59,6 +63,10 @@ button{
 .clock {
     margin: 0 6px;
     font-size: 1.0em;
+}
+
+.sys-tray{
+    margin-right : 5px;
 }
 
 progress, highlight {
