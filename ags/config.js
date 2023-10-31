@@ -144,7 +144,7 @@ const Workspaces = () => Widget.EventBox({
 const ClientTitle = () => Widget.Label({
     className: 'client-title',
     binds: [
-        ['label', Hyprland.active.client, 'title', t => `${t.slice(0,15)}`],
+        ['label', Hyprland.active.client, 'title', t => `${t.slice(0,30)}`],
     ],
 });
 

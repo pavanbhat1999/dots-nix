@@ -19,6 +19,7 @@ button{
     /* color: #eee; */
     border-radius:5px;
     padding: 10px 10px;
+    margin: 5px 0px;
 }
 
 .workspaces button:hover,
