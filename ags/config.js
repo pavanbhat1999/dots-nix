@@ -202,8 +202,11 @@ const Media = () => Widget.Button({
         connections: [[Mpris, self => {
             const mpris = Mpris.getPlayer('');
             // mpris player can be undefined
-            if (mpris)
-                self.label = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
+            if (mpris){
+                let title = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
+                title = title.slice(0,70);
+                self.label = title;
+            }
             else
                 self.label = 'Nothing is playing';
         }]],
