@@ -51,6 +51,7 @@ const NotificationCenter = () => Widget.Window({
     anchor: ['right', 'top', 'bottom'],
     popup: true,
     focusable: true,
+    visible: false,
     child: Widget.Box({
         children: [
             Widget.EventBox({
@@ -72,6 +73,7 @@ const NotificationCenter = () => Widget.Window({
 const NotificationsPopupWindow = () => Widget.Window({
     name: 'popup-window',
     anchor: ['top'],
+    visible: false,
     child: PopupList(),
 });
 
@@ -170,6 +172,7 @@ const Clock = () => Widget.Button({
             .then(date => self.label = date).catch(console.error)],
     ],
 }),
+    // onHover: 'ags -t calendar-window',
     onPrimaryClick: 'ags -t calendar-window',
 
 });
