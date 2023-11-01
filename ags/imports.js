@@ -18,6 +18,7 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 
+export { default as Gtk } from 'gi://Gtk?version=3.0';
 export {
     App,
     Widget,

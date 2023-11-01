@@ -13,6 +13,7 @@ import Network from 'resource:///com/github/Aylur/ags/service/network.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Brightness from './brightness.js';
 import icons from './icons.js';
+import {Gtk} from './imports.js';
 import {
     NotificationList, DNDSwitch, ClearButton, PopupList,
 } from './widgets.js';
@@ -148,7 +149,16 @@ const ClientTitle = () => Widget.Label({
     ],
 });
 
-const Clock = () => Widget.Label({
+
+const Calendar = Widget({
+  type: Gtk.Calendar,
+  showDayNames: false,
+  showHeading: true,
+  className: "rounded-rt-6 border-none",
+});
+
+const Clock = () => Widget.Button({
+    child:     Widget.Label({
     className: 'clock',
     connections: [
         // this is bad practice, since exec() will block the main event loop
@@ -156,9 +166,12 @@ const Clock = () => Widget.Label({
         // [1000, self => self.label = exec('date "+%H:%M:%S %b %e."')],
 
         // this is what you should do
-        [1000, self => execAsync(['date', '+%I:%M %p %b %e.'])
+        [1000, self => execAsync(['date', '+%I:%M %p %b %e'])
             .then(date => self.label = date).catch(console.error)],
     ],
+}),
+    onPrimaryClick: 'ags -t calendar-window',
+
 });
 
 // we don't need dunst or any other notification daemon
@@ -262,8 +275,13 @@ const BatteryLabel = () => Widget.Box({
 
         Widget.Icon({
             connections: [[Battery, self => {
+                if (`${Battery.charging}`=='false') {
                 self.icon = `battery-level-${Math.floor(Battery.percent / 10) * 10}-symbolic`;
-                self.tooltipText = `Charging:${Battery.charging}`
+                }
+                if (`${Battery.charging}`=='true') {
+                self.icon = `battery-0${Math.floor(Battery.percent/10)*10}-charging`;
+                }
+                self.tooltipText=`Charging:${Battery.charging}`;
             }]],
         }),
         Widget.Label({
@@ -416,6 +434,18 @@ const Bar = ({ monitor } = {}) => Widget.Window({
     }),
 })
 
+const CalendarWindow = () => Widget.Window({
+    name: 'calendar-window',
+    className: 'calendar-window',
+    anchor: ['bottom','right'],
+    exclusive: false,
+    visible: false,
+    focusable: true,
+    layer: 'top',
+    popup: true,
+    child: Calendar,
+})
+
 // exporting the config so ags can manage the windows
 export default {
     style: App.configDir + '/style.css',
@@ -424,6 +454,7 @@ export default {
 
         NotificationsPopupWindow(),
         NotificationCenter(),
+        CalendarWindow(),
         // applauncher,
         // you can call it, for each monitor
         // Bar({ monitor: 0 }),
