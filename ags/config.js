@@ -152,11 +152,15 @@ const ClientTitle = () => Widget.Label({
 });
 
 
-const Calendar = Widget({
+const Calendar = Widget.EventBox({
+    child:
+    Widget({
   type: Gtk.Calendar,
   showDayNames: false,
   showHeading: true,
   className: "rounded-rt-6 border-none",
+}),
+    onHoverLost: '',
 });
 
 const Clock = () => Widget.Button({
@@ -332,6 +336,17 @@ const cpu = Variable(0, {
         .replace(',', '.')])],
 });
 
+
+let netspeed = Variable(0, {
+    poll: [5000,'netspeed']
+})
+
+const Netspeed = () => Widget.Button({
+    child: Widget.Label({
+        binds:[['label',netspeed]]
+    })
+})
+
 const ram = Variable(0, {
     poll: [2000, 'free', out => divide(out.split('\n')
         .find(line => line.includes('Mem:'))
@@ -417,6 +432,7 @@ const Right = () => Widget.Box({
     children: [
         cpuProgress,
         ramProgress,
+        Netspeed(),
         // label,
         Volume(),
         BrightnessWidget(),
