@@ -73,7 +73,7 @@ const NotificationCenter = () => Widget.Window({
 const NotificationsPopupWindow = () => Widget.Window({
     name: 'popup-window',
     anchor: ['top'],
-    visible: false,
+    visible: true,
     child: PopupList(),
 });
 
