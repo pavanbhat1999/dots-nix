@@ -432,6 +432,7 @@ const Right = () => Widget.Box({
     children: [
         cpuProgress,
         ramProgress,
+        // WifiIndicator(),
         Netspeed(),
         // label,
         Volume(),

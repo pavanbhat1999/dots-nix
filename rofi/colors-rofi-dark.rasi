@@ -33,7 +33,7 @@
     border: 1;
     border-color:red;
     border-radius: 10px;
-    padding: 2.5ch;
+    //padding: 2.5ch;
 }
 
 #mainbox {
