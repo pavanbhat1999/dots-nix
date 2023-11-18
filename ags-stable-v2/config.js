@@ -18,6 +18,7 @@ import {
     NotificationList, DNDSwitch, ClearButton, PopupList,
 } from './widgets.js';
 import applauncher from './applauncher.js';
+import overview from './overview/Overview.js';
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, just make it a function
@@ -232,8 +233,9 @@ const Media = () => Widget.Button({
 const Volume = (type = 'speaker') => Widget.Box({
     className: 'volume',
     hexpand: false,
-    css: 'min-width: 100px',
-    children: [
+    css: 'min-width: 75px',
+    // onPrimaryClick: () => Utils.execAsync('pavucontrol'),
+    children: [ 
         Widget.Stack({
             items: [
                 // tuples of [string, Widget]
@@ -278,7 +280,7 @@ const BrightnessSlider = () => Widget.Slider({
 const BrightnessWidget = () => Widget.Box({
     className: 'slider',
     hexpand: false,
-    css: 'min-width: 100px',
+    css: 'min-width: 75px',
     children: [
         Widget.Icon({
             icon: icons.brightness.indicator,
@@ -491,6 +493,7 @@ export default {
         NotificationCenter(),
         CalendarWindow(),
         applauncher,
+        // overview(),
         // you can call it, for each monitor
         // Bar({ monitor: 0 }),
         Bar({ monitor: 1 }),

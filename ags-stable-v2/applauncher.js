@@ -104,6 +104,7 @@ export default Widget.Window({
     name: WINDOW_NAME,
     popup: true,
     focusable: true,
+    visible: false,
     child: Applauncher({
         width: 500,
         height: 500,
