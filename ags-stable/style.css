@@ -1,0 +1,162 @@
+.bar{
+    border: 1px solid aqua;
+    border-radius : 10px;
+    background-color: rgba(40, 40, 59, 0.9);
+}
+label {
+    /* font-weight: bold; */
+}
+button{
+    all:unset;
+}
+
+.workspaces{
+    margin-left:10px;
+}
+
+.workspaces button,
+.media {
+    /* background-color: transparent; */
+    /* color: #eee; */
+    border-radius:5px;
+    padding: 10px 10px;
+    margin: 5px 0px;
+}
+
+.workspaces button:hover,
+.media:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #efefef;
+}
+
+.workspaces button:active,
+.media:active {
+    /* background-color: rgba(255, 255, 255, 0.2); */
+    /* color: #fff; */
+}
+
+.current-workspace{
+    /* all:unset; */
+    /* border: 1px solid aqua; */
+	background-color: #7aa2f7;
+    color: #24283b;
+}
+.workspaces button.focused {
+    border-bottom: 3px solid aqua;
+}
+
+.client-title {
+    margin-left: 1em;
+    color: aqua;
+}
+
+.notification image {
+    color: yellow;
+    margin-left: 1em;
+}
+.volume {
+    margin-left:5px;
+}
+
+.battery progressbar {
+    /* margin: 0 6px; */
+}
+
+.clock {
+    margin: 0 6px;
+    font-size: 1.0em;
+}
+
+.sys-tray{
+    margin-right : 5px;
+}
+
+progress, highlight {
+    background-color: aqua;
+    /* min-height: 8px; */
+}
+
+
+/* NOTE: This is for notification center */
+/* Assuming Adwaita-dark as Gtk theme */
+
+#popup-window {
+    background-color: transparent;
+}
+
+#notification-center {
+    background-color: #24283b;
+}
+
+#popup-window .notification > * {
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+#popup-window *,
+#notification-center *{
+    outline: none;
+    color: white;
+}
+
+.notification > * {
+    margin: 8px;
+    padding: 8px;
+    border-radius: 15px;
+    background-color: #141414;
+}
+
+.notification .icon {
+    border-radius: 7px;
+    margin-right: 8px;
+}
+
+.notification .close-button {
+    padding: 0;
+    margin: 0;
+    min-height: 1.4em;
+    min-width: 1.4em;
+    border-radius: 1em;
+}
+
+.notification .title {
+    font-size: 1.1em;
+    color: white;
+}
+
+.notification .description {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.list {
+    margin: 8px;
+    min-width: 380px;
+}
+
+.action-button {
+    margin: 0 4px;
+}
+
+.action-button:first-child {
+    margin-left: 0;
+}
+
+.action-button:last-child {
+    margin-right: 0;
+}
+
+.action-button:last-child:first-child {
+    margin: 0;
+}
+
+.header {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.placeholder image {
+    font-size: 8em;
+}
+
+.placeholder label {
+    font-size: 1.4em;
+}

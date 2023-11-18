@@ -50,7 +50,7 @@ const Applauncher = ({ width, height, spacing }) => {
 
     const entry = Widget.Entry({
         hexpand: true,
-        style: `margin-bottom: ${spacing}px;`,
+        css: `margin-bottom: ${spacing}px;`,
 
         // set some text so onChange works the first time
         text: '-',
@@ -72,14 +72,14 @@ const Applauncher = ({ width, height, spacing }) => {
 
     return Widget.Box({
         vertical: true,
-        style: `margin: ${spacing * 2}px;`,
+        css: `margin: ${spacing * 2}px;`,
         children: [
             entry,
 
             // wrap the list in a scrollable
             Widget.Scrollable({
                 hscroll: 'never',
-                style: `
+                css: `
                     min-width: ${width}px;
                     min-height: ${height}px;
                 `,

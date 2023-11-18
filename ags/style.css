@@ -1,6 +1,7 @@
 .bar{
     border: 1px solid aqua;
     border-radius : 10px;
+    background-color: rgba(40, 40, 59, 0.8);
 }
 label {
     /* font-weight: bold; */

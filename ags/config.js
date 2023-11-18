@@ -17,7 +17,7 @@ import {Gtk} from './imports.js';
 import {
     NotificationList, DNDSwitch, ClearButton, PopupList,
 } from './widgets.js';
-// import applauncher from './applauncher.js';
+import applauncher from './applauncher.js';
 
 // widgets can be only assigned as a child in one container
 // so to make a reuseable widget, just make it a function
@@ -77,7 +77,7 @@ const NotificationsPopupWindow = () => Widget.Window({
     child: PopupList(),
 });
 
-timeout(500, () => execAsync([
+timeout(500, () => Utils.execAsync([
     'notify-send',
     'Notification Center example',
     'To have the panel popup run "ags toggle-window notification-center"' +
@@ -144,23 +144,32 @@ const Workspaces = () => Widget.EventBox({
         })]],
     }),
 });
-const ClientTitle = () => Widget.Label({
+const ClientTitle = () => Widget.Box({
+children:[
+        Widget.Icon({
+            size:35,
+            connections: [[Hyprland, self => {
+                self.icon = `${Hyprland.active.client.class}`;
+            }]],
+        }),
+    Widget.Label({
     className: 'client-title',
     binds: [
         ['label', Hyprland.active.client, 'title', t => `${t.slice(0,30)}`],
     ],
-});
+}),
+]
+})
 
 
 const Calendar = Widget.EventBox({
     child:
-    Widget({
-  type: Gtk.Calendar,
+    Widget.Calendar({
   showDayNames: false,
   showHeading: true,
   className: "rounded-rt-6 border-none",
 }),
-    onHoverLost: '',
+    // onHoverLost: '',
 });
 
 const Clock = () => Widget.Button({
@@ -177,7 +186,7 @@ const Clock = () => Widget.Button({
     ],
 }),
     // onHover: 'ags -t calendar-window',
-    onPrimaryClick: 'ags -t calendar-window',
+    onClicked: () => Utils.execAsync('ags -t calendar-window'),
 
 });
 
@@ -222,7 +231,8 @@ const Media = () => Widget.Button({
 
 const Volume = (type = 'speaker') => Widget.Box({
     className: 'volume',
-    style: 'min-width: 100px',
+    hexpand: false,
+    css: 'min-width: 100px',
     children: [
         Widget.Stack({
             items: [
@@ -267,7 +277,8 @@ const BrightnessSlider = () => Widget.Slider({
 });
 const BrightnessWidget = () => Widget.Box({
     className: 'slider',
-    style: 'min-width: 100px',
+    hexpand: false,
+    css: 'min-width: 100px',
     children: [
         Widget.Icon({
             icon: icons.brightness.indicator,
@@ -298,7 +309,7 @@ const BatteryLabel = () => Widget.Box({
     binds: [['label', Battery, 'percent', p => `${p}%`]],
         }),
         // Widget.ProgressBar({
-        //     valign: 'center',
+        //     vpack: 'center',
         //     connections: [[Battery, self => {
         //         if (Battery.percent < 0)
         //             return;
@@ -323,7 +334,7 @@ const SysTray = () => Widget.Box({
 //
 const notificationbtn = Widget.Button({
     child: Widget.Label(' '),
-    onPrimaryClick: 'ags -t notification-center',
+    onPrimaryClick: () => Utils.execAsync('ags -t notification-center'),
 });
 //
 //NOTE: RAM and CPU
@@ -355,7 +366,7 @@ const ram = Variable(0, {
 });
 
 const cpuProgress = Widget.CircularProgress({
-   style:
+   css:
         'min-width: 30px;' + // its size is min(min-height, min-width)
         'min-height: 30px;' +
         'font-size: 7px;' + // to set its thickness set font-size on it
@@ -367,7 +378,7 @@ const cpuProgress = Widget.CircularProgress({
         self.tooltipText= 'CPU';
     }]],
     child: Widget.Label({
-        style:
+        css:
         'font-size:10px;',
         binds:[
         ['label', cpu, 'value', value => (Math.round(parseFloat(value.toString())*100)).toString()],
@@ -375,7 +386,7 @@ const cpuProgress = Widget.CircularProgress({
     }),
 });
 const ramProgress = Widget.CircularProgress({
-   style:
+   css:
         'min-width: 30px;' + // its size is min(min-height, min-width)
         'min-height: 30px;' +
         'font-size: 7px;' + // to set its thickness set font-size on it
@@ -387,7 +398,7 @@ const ramProgress = Widget.CircularProgress({
         self.tooltipText= `RAM`;
     }]],
     child: Widget.Label({
-        style:
+        css:
         'font-size:10px;',
         binds:[
         ['label', ram, 'value', value => (Math.round(parseFloat(value.toString())*100)).toString()],
@@ -428,7 +439,8 @@ const Center = () => Widget.Box({
 });
 
 const Right = () => Widget.Box({
-    halign: 'end',
+    hpack: 'end',
+    hexpand: true,
     children: [
         cpuProgress,
         ramProgress,
@@ -449,7 +461,7 @@ const Bar = ({ monitor } = {}) => Widget.Window({
     className: 'bar',
     monitor,
     anchor: ['bottom', 'left', 'right'],
-    exclusive: true,
+    exclusivity: "exclusive",
     child: Widget.CenterBox({
         startWidget: Left(),
         centerWidget: Center(),
@@ -461,7 +473,7 @@ const CalendarWindow = () => Widget.Window({
     name: 'calendar-window',
     className: 'calendar-window',
     anchor: ['bottom','right'],
-    exclusive: false,
+    exclusivity: "exclusive",
     visible: false,
     focusable: true,
     layer: 'top',
@@ -478,7 +490,7 @@ export default {
         NotificationsPopupWindow(),
         NotificationCenter(),
         CalendarWindow(),
-        // applauncher,
+        applauncher,
         // you can call it, for each monitor
         // Bar({ monitor: 0 }),
         Bar({ monitor: 1 }),
