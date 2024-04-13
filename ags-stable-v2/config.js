@@ -235,7 +235,7 @@ const Volume = (type = 'speaker') => Widget.Box({
     hexpand: false,
     css: 'min-width: 75px',
     // onPrimaryClick: () => Utils.execAsync('pavucontrol'),
-    children: [ 
+    children: [
         Widget.Stack({
             items: [
                 // tuples of [string, Widget]
